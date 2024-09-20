@@ -1,35 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import LocationComponent from "./components/location";
+import Head from "./components/head";
+import Hourly from "./components/hourly";
+import Daily from "./components/daily";
+import Foot from "./components/foot";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="bg-thirty">
+      <Head />
+      {/* <Local formRef={handleFormRef} /> // don't need this once updated since will use users location or default location if denied*/}
+      <LocationComponent />
+      <Hourly />
+      <Daily />
+      <Foot />
+    </div>
+  );
 }
 
-export default App
+export default App;
