@@ -91,3 +91,31 @@ hr {
   font-family: "Fascinate Inline", system-ui;
   font-size: 2.5rem;
 }
+
+.loading-degree {
+  height: 30vh;
+  width: 30vw;
+}
+
+.local-name {
+  height: 3vh;
+  width: 10vw;
+}
+
+.hourly-time {
+  height: 3.5vh;
+  width: 8vw;
+  margin-bottom: .5rem;
+}
+
+.hourly-temp {
+  height: 3.5vh;
+  width: 8vw;
+  margin-top: .5rem;
+}
+
+.hourly-day {
+  height: 3.5vh;
+  width: 8vw;
+  margin-top: .5rem;
+}

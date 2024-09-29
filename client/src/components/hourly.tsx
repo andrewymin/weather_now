@@ -1,5 +1,7 @@
+import { useData } from "@/context/dataContext";
 import { useEffect, useRef } from "react";
-// import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import Loading from "./loading";
+import { HourlyType } from "@/context/dataContext";
 
 export interface Artwork {
   artist: string;
@@ -83,6 +85,7 @@ export const works: Artwork[] = [
 
 function Hourly() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const { dataState } = useData();
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
@@ -111,25 +114,43 @@ function Hourly() {
     };
   }, []);
 
+  // const currentWeatherDate = dataState.locationData.location.localtime;
+  // const date = new Date(currentWeatherDate);
+
   return (
     <div className="flex justify-center items-center w-full border-t-2 ">
       <div
         ref={scrollContainerRef}
         className="whitespace-nowrap flex flex-nowrap w-full p-2 scrollable overflow-x-scroll custom-scrollbar"
       >
-        {works.map((hour, index) => (
+        {dataState.hourlyData.map((hour: HourlyType, index: number) => (
           <div key={index} className="m-2 shrink-0 text-center">
-            <h1 className="text-[1.8rem]">10pm</h1>
+            <h1 className="text-[1.8rem]">
+              {!dataState.hourlyData ? (
+                <Loading extraName="hourly-time m-auto" />
+              ) : (
+                hour.time
+                // "10pm"
+              )}
+            </h1>
             <div className="overflow-hidden rounded-md flex justify-center ">
               <img
-                src={hour.art}
-                alt={`${hour.artist}`}
+                src={hour.condition_png}
+                alt={`${hour.condition}`}
                 className="aspect-[3/4] object-cover"
                 width={150}
                 height={170}
               />
             </div>
-            <span className="font-semibold text-[1.8rem]">75℉</span>
+            <span className="font-semibold text-[1.8rem]">
+              {!dataState.hourlyData ? (
+                <Loading extraName="hourly-temp m-auto" />
+              ) : dataState.celsius ? (
+                <>{Math.round(hour.temp_c)}℃</>
+              ) : (
+                <>{Math.round(hour.temp_f)}℉</>
+              )}
+            </span>
           </div>
         ))}
       </div>

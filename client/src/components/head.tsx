@@ -1,14 +1,19 @@
+import { useState, useEffect } from "react";
+import { useData } from "@/context/dataContext";
 import { Button } from "@/components/ui/button";
+import Loading from "./loading";
 
-const getLocation = () => {
+const changeLocation = () => {
   alert("change current location");
 };
 
-const switchTempScale = () => {
-  alert("change temp scale");
-};
-
 function Head() {
+  const { dataState, dispatch } = useData();
+
+  const changeTempScale = () => {
+    dispatch({ type: "CELSIUS" });
+  };
+
   return (
     <nav className="flex justify-between items-center bg-gradient-to-b from-thirty from-65% p-6 top-0 left-0 w-full">
       <h1 id="brand" className="text-3xl font-bold text-center">
@@ -16,14 +21,20 @@ function Head() {
       </h1>
       <div className="flex items-center gap-8">
         <Button
-          onClick={getLocation}
+          onClick={changeLocation}
           className="bg-ten text-slate-950 hover:text-white hover:bg-darkerBlue"
         >
           Location
         </Button>
-        <h2 className="font-semibold">Aurora, CO</h2>
+        <h2 className="font-semibold">
+          {!dataState.locationData ? (
+            <Loading extraName="local-name" />
+          ) : (
+            dataState.locationData.location.name
+          )}
+        </h2>
         <Button
-          onClick={switchTempScale}
+          onClick={changeTempScale}
           className="bg-ten text-slate-950 hover:text-white hover:bg-darkerBlue"
         >
           ℃/℉
