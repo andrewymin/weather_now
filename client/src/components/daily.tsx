@@ -27,15 +27,19 @@ function Daily() {
       <div className="w-[70%] m-12 text-center">
         <div className="grid grid-cols-3 py-6 border-b-2 hover:bg-darkerBlue rounded-t-[7px]">
           <h1 className="font-bold">Day</h1>
-          <h1 className="font-bold">Weather</h1>
-          <h1 className="font-bold">Tempature</h1>
+          <h1 className="font-bold">
+            Weather
+            <br />
+            Condition
+          </h1>
+          <h1 className="font-bold">Max Temp.</h1>
         </div>
         {!dataState.locationData ? (
           <>
             {invoices.map((day, i) => (
               <div
                 key={i}
-                className="grid grid-cols-3 py-6 border-b-2 hover:bg-darkerBlue last:rounded-b-[7px] last:border-none"
+                className="grid grid-cols-3 py-6 border-b-2 hover:bg-darkerBlue last:rounded-b-[7px] last:border-none text-2xl"
               >
                 <div>
                   <Loading extraName="hourly-day m-auto" />
@@ -56,7 +60,7 @@ function Daily() {
                 key={i}
                 className="grid grid-cols-3 py-6 border-b-2 hover:bg-darkerBlue last:rounded-b-[7px] last:border-none"
               >
-                <div>{d.date.split("-")[2]}</div>
+                <div className="m-auto text-5xl">{d.date.split("-")[2]}</div>
                 <img
                   className="m-auto"
                   src={d.day.condition.icon}
@@ -65,9 +69,13 @@ function Daily() {
                   height={100}
                 />
                 {dataState.celsius ? (
-                  <div>{Math.round(d.day.maxtemp_c)}℃</div>
+                  <div className="m-auto text-5xl">
+                    {Math.round(d.day.maxtemp_c)}℃
+                  </div>
                 ) : (
-                  <div>{Math.round(d.day.maxtemp_f)}℉</div>
+                  <div className="m-auto text-5xl">
+                    {Math.round(d.day.maxtemp_f)}℉
+                  </div>
                 )}
               </div>
             ))}

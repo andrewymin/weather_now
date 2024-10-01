@@ -8,6 +8,7 @@ import {
   useEffect,
 } from "react";
 import { customAxios, isAxiosError } from "../api/axiosInstance";
+import { Theater } from "lucide-react";
 // import { useNavigate } from "react-router-dom";
 
 // Reducer State TYPE for each state
@@ -153,8 +154,11 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     //   for full 24hr period
     if (currentHour == 0o0) {
       currentDayHoursArray.forEach((hour) => {
+        let thatHour = hour.time.split(" ")[1].split(":")[0];
+        if (thatHour == 0o0) thatHour = 12;
+
         hourlyArray.push({
-          time: hour.time.split()[1].split(":")[0],
+          time: thatHour,
           temp_c: hour.temp_c,
           temp_f: hour.temp_f,
           condition: hour.condition.text,
@@ -169,8 +173,15 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     //   at current hour and loop through next day ending at current hour
     if (currentHour > 0o0) {
       currentDayHoursArray.slice(currentHour).forEach((hour) => {
+        let thatHour = hour.time.split(" ")[1].split(":")[0];
+        if (thatHour > 12) thatHour = thatHour - 12 + "pm";
+        if (thatHour < 12 && thatHour != 0)
+          thatHour = parseInt(thatHour) + "am";
+        if (thatHour == 12) thatHour = thatHour + "pm";
+        if (thatHour == 0o0) thatHour = 12 + "am";
+        // console.log(typeof thatHour);
         hourlyArray.push({
-          time: hour.time.split(" ")[1].split(":")[0],
+          time: thatHour,
           temp_c: hour.temp_c,
           temp_f: hour.temp_f,
           condition: hour.condition.text,
@@ -180,8 +191,15 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
       });
 
       nextDayHoursArray.slice(0, currentHour).forEach((hour) => {
+        let thatHour = hour.time.split(" ")[1].split(":")[0];
+        if (thatHour > 12) thatHour = thatHour - 12 + "pm";
+        if (thatHour < 12 && thatHour != 0)
+          thatHour = parseInt(thatHour) + "am";
+        if (thatHour == 12) thatHour = thatHour + "pm";
+        if (thatHour == 0o0) thatHour = 12 + "am";
+        // console.log(typeof thatHour);
         hourlyArray.push({
-          time: hour.time.split(" ")[1].split(":")[0],
+          time: thatHour.toString(),
           temp_c: hour.temp_c,
           temp_f: hour.temp_f,
           condition: hour.condition.text,
@@ -242,6 +260,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
+    // this allows for data to actually work since it's re-rendering
     dataState.locationData && getHourlyData();
   }, [dataState.locationData]);
 
