@@ -150,64 +150,42 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
       dataState.locationData?.location.localtime.split(" ")[1].split(":")[0]
     );
 
-    // If user is checking weather at midnight then just loop through currrent day
-    //   for full 24hr period
-    if (currentHour == 0o0) {
-      currentDayHoursArray.forEach((hour) => {
-        let thatHour = hour.time.split(" ")[1].split(":")[0];
-        if (thatHour == 0o0) thatHour = 12;
-
-        hourlyArray.push({
-          time: thatHour,
-          temp_c: hour.temp_c,
-          temp_f: hour.temp_f,
-          condition: hour.condition.text,
-          condition_png: hour.condition.icon,
-          condition_code: hour.condition.code,
-        });
-        return;
-      });
-    }
-
     // For a 24hr period must access next day, thus loop through current starting
     //   at current hour and loop through next day ending at current hour
-    if (currentHour > 0o0) {
-      currentDayHoursArray.slice(currentHour).forEach((hour) => {
-        let thatHour = hour.time.split(" ")[1].split(":")[0];
-        if (thatHour > 12) thatHour = thatHour - 12 + "pm";
-        if (thatHour < 12 && thatHour != 0)
-          thatHour = parseInt(thatHour) + "am";
-        if (thatHour == 12) thatHour = thatHour + "pm";
-        if (thatHour == 0o0) thatHour = 12 + "am";
-        // console.log(typeof thatHour);
-        hourlyArray.push({
-          time: thatHour,
-          temp_c: hour.temp_c,
-          temp_f: hour.temp_f,
-          condition: hour.condition.text,
-          condition_png: hour.condition.icon,
-          condition_code: hour.condition.code,
-        });
-      });
 
-      nextDayHoursArray.slice(0, currentHour).forEach((hour) => {
-        let thatHour = hour.time.split(" ")[1].split(":")[0];
-        if (thatHour > 12) thatHour = thatHour - 12 + "pm";
-        if (thatHour < 12 && thatHour != 0)
-          thatHour = parseInt(thatHour) + "am";
-        if (thatHour == 12) thatHour = thatHour + "pm";
-        if (thatHour == 0o0) thatHour = 12 + "am";
-        // console.log(typeof thatHour);
-        hourlyArray.push({
-          time: thatHour.toString(),
-          temp_c: hour.temp_c,
-          temp_f: hour.temp_f,
-          condition: hour.condition.text,
-          condition_png: hour.condition.icon,
-          condition_code: hour.condition.code,
-        });
+    currentDayHoursArray.slice(currentHour).forEach((hour) => {
+      let thatHour = hour.time.split(" ")[1].split(":")[0];
+      if (thatHour > 12) thatHour = thatHour - 12 + "pm";
+      if (thatHour < 12 && thatHour != 0) thatHour = parseInt(thatHour) + "am";
+      if (thatHour == 12) thatHour = thatHour + "pm";
+      if (thatHour == 0o0) thatHour = 12 + "am";
+      // console.log(typeof thatHour);
+      hourlyArray.push({
+        time: thatHour,
+        temp_c: hour.temp_c,
+        temp_f: hour.temp_f,
+        condition: hour.condition.text,
+        condition_png: hour.condition.icon,
+        condition_code: hour.condition.code,
       });
-    }
+    });
+
+    nextDayHoursArray.slice(0, currentHour).forEach((hour) => {
+      let thatHour = hour.time.split(" ")[1].split(":")[0];
+      if (thatHour > 12) thatHour = thatHour - 12 + "pm";
+      if (thatHour < 12 && thatHour != 0) thatHour = parseInt(thatHour) + "am";
+      if (thatHour == 12) thatHour = thatHour + "pm";
+      if (thatHour == 0o0) thatHour = 12 + "am";
+      // console.log(typeof thatHour);
+      hourlyArray.push({
+        time: thatHour.toString(),
+        temp_c: hour.temp_c,
+        temp_f: hour.temp_f,
+        condition: hour.condition.text,
+        condition_png: hour.condition.icon,
+        condition_code: hour.condition.code,
+      });
+    });
 
     dispatch({ type: "HOURLYDATA", payload: hourlyArray });
   };
@@ -262,6 +240,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     // this allows for data to actually work since it's re-rendering
     dataState.locationData && getHourlyData();
+    console.log("how many times is this running test");
   }, [dataState.locationData]);
 
   return (
