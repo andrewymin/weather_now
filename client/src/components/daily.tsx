@@ -1,23 +1,26 @@
 import { useData } from "@/context/dataContext";
 import Loading from "./loading";
 
-const invoices = [
-  {
-    invoice: "10",
-    paymentStatus: "Clear",
-    paymentMethod: "70℉",
-  },
-  {
-    invoice: "11",
-    paymentStatus: "Pending",
-    paymentMethod: "75℉",
-  },
-  {
-    invoice: "12",
-    paymentStatus: "Clear",
-    paymentMethod: "65℉",
-  },
-];
+// const test = [
+//   {
+//     invoice: "10",
+//     paymentStatus: "Clear",
+//     paymentMethod: "70℉",
+//   },
+//   {
+//     invoice: "11",
+//     paymentStatus: "Pending",
+//     paymentMethod: "75℉",
+//   },
+//   {
+//     invoice: "12",
+//     paymentStatus: "Clear",
+//     paymentMethod: "65℉",
+//   },
+// ];
+
+const d = new Date();
+const currentDay: number = d.getDate();
 
 function Daily() {
   const { dataState } = useData();
@@ -36,7 +39,7 @@ function Daily() {
         </div>
         {!dataState.locationData ? (
           <>
-            {invoices.map((day, i) => (
+            {dataState.dailyData.map((d: any, i: number) => (
               <div
                 key={i}
                 className="grid grid-cols-3 py-6 border-b-2 hover:bg-darkerBlue last:rounded-b-[7px] last:border-none text-2xl"
@@ -60,7 +63,11 @@ function Daily() {
                 key={i}
                 className="grid grid-cols-3 py-6 border-b-2 hover:bg-darkerBlue last:rounded-b-[7px] last:border-none"
               >
-                <div className="m-auto text-5xl">{d.date.split("-")[2]}</div>
+                <div className="m-auto text-5xl">
+                  {parseInt(d.date.split("-")[2]) == currentDay
+                    ? "Today"
+                    : d.date.split("-")[2]}
+                </div>
                 <img
                   className="m-auto"
                   src={d.day.condition.icon}
