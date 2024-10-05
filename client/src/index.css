@@ -119,3 +119,12 @@ hr {
   width: 8vw;
   margin-top: .5rem;
 }
+
+.scrollHide {
+  -ms-overflow-style: none;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+.scrollHide::-webkit-scrollbar {
+  display: none;
+}

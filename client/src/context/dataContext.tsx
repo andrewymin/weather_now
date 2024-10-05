@@ -257,14 +257,14 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  useEffect(() => {
-    getLocation();
-  }, []);
+  // useEffect(() => {
+  //   getLocation();
+  // }, []);
 
-  useEffect(() => {
-    // this allows for data to actually work since it's re-rendering
-    dataState.locationData && getHourlyData();
-  }, [dataState.locationData]);
+  // useEffect(() => {
+  //   // this allows for data to actually work since it's re-rendering
+  //   dataState.locationData && getHourlyData();
+  // }, [dataState.locationData]);
 
   return (
     // <DataContext.Provider value={{ dataState, dispatch, intervalId }}>

@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 import { useData } from "@/context/dataContext";
 import { Button } from "@/components/ui/button";
+import SearchLocal from "./searchLocal";
 import Loading from "./loading";
-
-const changeLocation = () => {
-  alert("change current location");
-};
 
 function Head() {
   const { dataState, dispatch } = useData();
@@ -20,12 +17,7 @@ function Head() {
         Weather <br /> Now
       </h1>
       <div className="flex items-center gap-8">
-        <Button
-          onClick={changeLocation}
-          className="bg-ten text-slate-950 hover:text-white hover:bg-darkerBlue"
-        >
-          Location
-        </Button>
+        <SearchLocal />
         <h2 className="font-semibold">
           {!dataState.locationData ? (
             <Loading extraName="local-name" />
