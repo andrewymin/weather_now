@@ -8,7 +8,6 @@ import {
   useEffect,
 } from "react";
 import { customAxios, isAxiosError } from "../api/axiosInstance";
-import { Theater } from "lucide-react";
 // import { useNavigate } from "react-router-dom";
 
 // Reducer State TYPE for each state
@@ -22,6 +21,7 @@ interface State {
   celsius: boolean | SetStateAction<undefined>;
   hourlyData: any;
   dailyData: any;
+  searchLocation: string;
 }
 
 export interface HourlyType {
@@ -31,6 +31,10 @@ export interface HourlyType {
   condition: string;
   condition_png: string;
   condition_code: number;
+}
+
+interface AxiosCallFunction {
+  (): Promise<void>;
 }
 
 // Reducer Action TYPE for each state action
@@ -55,7 +59,8 @@ type Action =
       payload?: SetStateAction<undefined>;
     }
   | { type: "LOADING" }
-  | { type: "DONE_LOADING" };
+  | { type: "DONE_LOADING" }
+  | { type: "SEARCH_LOCATION"; payload: string };
 
 // Initial value for each state value
 const initialState = {
@@ -65,6 +70,7 @@ const initialState = {
   celsius: false,
   hourlyData: [],
   dailyData: [],
+  searchLocation: "",
 };
 
 // Type for function that uses Axios inside of it
@@ -83,6 +89,7 @@ interface DataContextType {
   getTempData: tempDataFunction;
   // This is a function type for when there is no arguments and no return value
   getHourlyData: () => void;
+  getLocationWeather: AxiosCallFunction;
 }
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -111,6 +118,8 @@ const reducer = (dataState: State, action: Action): State => {
       return { ...dataState, loading: true };
     case "DONE_LOADING":
       return { ...dataState, loading: false };
+    case "SEARCH_LOCATION":
+      return { ...dataState, searchLocation: action.payload };
     default:
       return dataState;
   }
@@ -257,19 +266,70 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // useEffect(() => {
-  //   getLocation();
-  // }, []);
+  const getLocationWeather = async () => {
+    // console.log(dataState.searchLocation);
+    // dispatch({ type: "LOADING" });
 
-  // useEffect(() => {
-  //   // this allows for data to actually work since it's re-rendering
-  //   dataState.locationData && getHourlyData();
-  // }, [dataState.locationData]);
+    try {
+      await customAxios
+        .get("weather-now/search-weather-location", {
+          params: {
+            searchLocation: dataState.searchLocation,
+          },
+        })
+        .then((res) => {
+          // console.log(res);
+          dispatch({ type: "LOCATIONDATA", payload: res.data });
+          dispatch({
+            type: "DAILYDATA",
+            payload: res.data.forecast.forecastday,
+          });
+          dispatch({ type: "DONE_LOADING" });
+        });
+    } catch (error) {
+      if (isAxiosError(error)) {
+        // `error` is an AxiosError
+        console.error("Error message: ", error.message);
+        console.error("Error message: ", error.code);
+        if (error.response) {
+          // Server responded with a status other than 2xx
+          // toastify will only work with toastContainer! don't forget
+          console.log(error.response.data.errorMsg);
+          // showError(error.response.data.errorMsg);
+        } else if (error.request) {
+          // Request was made but no response was received
+          console.error("Request data:", error.request);
+        } else {
+          // Something happened in setting up the request
+          console.error("Error:", error.message);
+        }
+      } else {
+        // Handle non-Axios errors
+        console.error("Unexpected error:", error);
+      }
+    }
+  };
+
+  ////////// UNcomment when done testing
+  useEffect(() => {
+    getLocation();
+  }, []);
+
+  useEffect(() => {
+    // this allows for data to actually work since it's re-rendering
+    dataState.locationData && getHourlyData();
+  }, [dataState.locationData]);
 
   return (
     // <DataContext.Provider value={{ dataState, dispatch, intervalId }}>
     <DataContext.Provider
-      value={{ dataState, dispatch, getTempData, getHourlyData }}
+      value={{
+        dataState,
+        dispatch,
+        getTempData,
+        getHourlyData,
+        getLocationWeather,
+      }}
     >
       {children}
     </DataContext.Provider>

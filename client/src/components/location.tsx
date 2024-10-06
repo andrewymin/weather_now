@@ -76,7 +76,17 @@ const LocationComponent = () => {
 
   return (
     <div className="flex h-[77vh]">
-      <div className="flex items-center w-6/12 text-[40vw]">☀</div>
+      <div className="flex items-center justify-center w-6/12 text-[40vw]">
+        {!dataState.locationData ? (
+          <Loading extraName="loading-degree" />
+        ) : (
+          <img
+            src={dataState.locationData.current.condition.icon}
+            alt={`${dataState.locationData.current.condition.text}`}
+            className="aspect-[3/4] object-contain w-[40vw]"
+          />
+        )}
+      </div>
 
       <div id="temp" className="w-6/12 text-[16vw]">
         {!dataState.locationData ? (

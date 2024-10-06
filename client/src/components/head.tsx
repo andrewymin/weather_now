@@ -22,7 +22,7 @@ function Head() {
           {!dataState.locationData ? (
             <Loading extraName="local-name" />
           ) : (
-            dataState.locationData.location.name
+            `${dataState.locationData.location.name}, ${dataState.locationData.location.region}`
           )}
         </h2>
         <Button

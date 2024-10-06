@@ -125,6 +125,7 @@ hr {
   overflow: auto;
   scroll-behavior: smooth;
 }
+
 .scrollHide::-webkit-scrollbar {
   display: none;
 }

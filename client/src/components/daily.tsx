@@ -39,22 +39,7 @@ function Daily() {
         </div>
         {!dataState.locationData ? (
           <>
-            {dataState.dailyData.map((d: any, i: number) => (
-              <div
-                key={i}
-                className="grid grid-cols-3 py-6 border-b-2 hover:bg-darkerBlue last:rounded-b-[7px] last:border-none text-2xl"
-              >
-                <div>
-                  <Loading extraName="hourly-day m-auto" />
-                </div>
-                <div>
-                  <Loading extraName="hourly-day m-auto" />
-                </div>
-                <div>
-                  <Loading extraName="hourly-day m-auto" />
-                </div>
-              </div>
-            ))}
+            <Loading extraName="hourly-day m-auto" />
           </>
         ) : (
           <>

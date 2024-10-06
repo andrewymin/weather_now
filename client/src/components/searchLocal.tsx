@@ -3,43 +3,49 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 // import locations from "../data/location_data.json";
 import locations from "../data/compressed_data.json";
+import { useData } from "@/context/dataContext";
 
-// const changeLocation = () => {
-//   alert(cities["United States"].filter("aurora"));
-// };
+function isStringNaN(value: string): boolean {
+  return isNaN(Number(value));
+}
 
 function SearchLocal() {
-  const [inputValue, setInputValue] = useState("");
+  const { dataState, dispatch, getLocationWeather } = useData();
+  // const [inputValue, setInputValue] = useState("");
   const [filteredCities, setFilteredCities] = useState<string[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setInputValue(value);
+    dispatch({ type: "SEARCH_LOCATION", payload: value });
 
     // If input value is not empty, filter the cities based on the input value
     if (value.length >= 3) {
       const matchedCities: string[] = [];
       locations.forEach((location) => {
         location.cities.forEach((city) => {
-          if (city.toLowerCase().includes(value.toLowerCase())) {
+          if (
+            city.toLowerCase().includes(value.toLowerCase()) &&
+            isStringNaN(location.state_code)
+          ) {
             matchedCities.push(`${city}, ${location.state_code}`);
           }
         });
       });
-      setFilteredCities(matchedCities);
+      setFilteredCities(matchedCities.sort());
     } else {
       setFilteredCities([]); // Clear filtered cities if input is empty
     }
   };
 
   const handleCitySelect = (city: string) => {
-    setInputValue(city);
+    dispatch({ type: "SEARCH_LOCATION", payload: city });
     setFilteredCities([]);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    setFilteredCities([]);
     e.preventDefault();
-    alert(`send ${inputValue} to server for weather data`);
+    getLocationWeather();
   };
 
   return (
@@ -51,7 +57,7 @@ function SearchLocal() {
         onSubmit={handleSubmit}
       >
         <Input
-          value={inputValue}
+          value={dataState.searchLocation}
           onChange={handleChange}
           type="search"
           placeholder="zip or city with state"
