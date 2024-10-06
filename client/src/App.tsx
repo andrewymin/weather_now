@@ -4,8 +4,8 @@ import Hourly from "./components/hourly";
 import Daily from "./components/daily";
 import Foot from "./components/foot";
 import { DataProvider } from "./context/dataContext";
-import { Suspense } from "react";
-import Loading from "./components/loading";
+// import { Suspense } from "react";
+// import Loading from "./components/loading";
 
 function App() {
   return (
