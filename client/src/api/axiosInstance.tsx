@@ -2,7 +2,7 @@ import axios, { isAxiosError } from "axios";
 
 const BASE_URL =
   process.env.NODE_ENV === "production"
-    ? "https://foodeem-zgft.vercel.app/"
+    ? "https://weather-now-zc74.vercel.app/"
     : "http://localhost:3001/";
 
 const customAxios = axios.create({
