@@ -29,13 +29,13 @@ function Daily() {
     <section id="days" className="flex justify-center">
       <div className="w-[70%] m-12 text-center">
         <div className="grid grid-cols-3 py-6 border-b-2 hover:bg-darkerBlue rounded-t-[7px]">
-          <h1 className="font-bold">Day</h1>
-          <h1 className="font-bold">
+          <h1 className="font-bold xs:!text-[.85]">Day</h1>
+          <h1 className="font-bold xs:!text-[.85]">
             Weather
             <br />
             Condition
           </h1>
-          <h1 className="font-bold">Max Temp.</h1>
+          <h1 className="font-bold xs:!text-[.85]">Max Temp.</h1>
         </div>
         {!dataState.locationData ? (
           <>
@@ -48,7 +48,7 @@ function Daily() {
                 key={i}
                 className="grid grid-cols-3 py-6 border-b-2 hover:bg-darkerBlue last:rounded-b-[7px] last:border-none"
               >
-                <div className="m-auto text-5xl">
+                <div className="m-auto text-5xl xs:!text-[2.1rem]">
                   {parseInt(d.date.split("-")[2]) == currentDay
                     ? "Today"
                     : d.date.split("-")[2]}
@@ -61,11 +61,11 @@ function Daily() {
                   height={100}
                 />
                 {dataState.celsius ? (
-                  <div className="m-auto text-5xl">
+                  <div className="m-auto text-5xl xs:!text-[2.1rem]">
                     {Math.round(d.day.maxtemp_c)}℃
                   </div>
                 ) : (
-                  <div className="m-auto text-5xl">
+                  <div className="m-auto text-5xl xs:!text-[2.1rem]">
                     {Math.round(d.day.maxtemp_f)}℉
                   </div>
                 )}

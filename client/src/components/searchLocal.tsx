@@ -53,10 +53,11 @@ function SearchLocal() {
       <form
         autoComplete="off"
         action="get"
-        className="flex w-full max-w-sm items-center space-x-2"
+        className="flex w-full max-w-sm items-center space-x-2 xs:min-w-[50vw]"
         onSubmit={handleSubmit}
       >
         <Input
+          className="xs:text-[.75rem]"
           value={dataState.searchLocation}
           onChange={handleChange}
           type="search"
@@ -70,7 +71,7 @@ function SearchLocal() {
         </Button>
       </form>
       {filteredCities.length > 0 && (
-        <ul className="border max-h-40 max-w-[20%] absolute mt-4 bg-white rounded z-10 scrollHide">
+        <ul className="border max-h-40 max-w-[20%] xs:!max-w-[44%] absolute mt-4 bg-white rounded z-10 scrollHide">
           {filteredCities.map((city, index) => (
             <li
               key={index}

@@ -5,7 +5,7 @@ function Foot() {
   return (
     <footer className="bg-ten ">
       <section className="flex justify-around p-8 text-center">
-        <h1 id="brand" className="text-5xl flex-1 m-auto">
+        <h1 id="brand" className="text-5xl flex-1 m-auto xs:!text-[2rem]">
           Weather
           <br />
           Now
@@ -25,7 +25,7 @@ function Foot() {
       <div className="grid grid-cols-3 text-center pt-12 pb-4 text-xs">
         <div> </div>
         <h5>©{year}. Weather Now</h5>
-        <div>DESIGNED BY ANDREW</div>
+        <div className="xs:!text-[0.6rem]">DESIGNED BY ANDREW</div>
       </div>
     </footer>
   );

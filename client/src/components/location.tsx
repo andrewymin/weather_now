@@ -75,8 +75,8 @@ const LocationComponent = () => {
   //   }, []);
 
   return (
-    <div className="flex h-[77vh]">
-      <div className="flex items-center justify-center w-6/12 text-[40vw]">
+    <div className="flex h-[77vh] xs:!h-[75vh]">
+      <div className="flex items-center justify-end w-6/12">
         {!dataState.locationData ? (
           <Loading extraName="loading-degree" />
         ) : (
@@ -88,13 +88,22 @@ const LocationComponent = () => {
         )}
       </div>
 
-      <div id="temp" className="w-6/12 text-[16vw]">
+      <div
+        id="temp"
+        className=" text-[13vw] md:text-[16vw] flex xs:pt-20 xs:text-[8rem]"
+      >
         {!dataState.locationData ? (
           <Loading extraName="loading-degree" />
         ) : dataState.celsius ? (
-          <>{Math.round(dataState.locationData.current.temp_c)}℃</>
+          <>
+            {Math.round(dataState.locationData.current.temp_c)}
+            <span className="text-[10vw] mt-6">℃</span>
+          </>
         ) : (
-          <>{Math.round(dataState.locationData.current.temp_f)}℉</>
+          <>
+            {Math.round(dataState.locationData.current.temp_f)}
+            <span className="text-[10vw] mt-6">℉</span>
+          </>
         )}
       </div>
     </div>
