@@ -90,7 +90,7 @@ const LocationComponent = () => {
 
       <div
         id="temp"
-        className=" text-[13vw] md:text-[16vw] flex xs:pt-20 xs:text-[8rem]"
+        className=" text-[13vw] md:text-[16vw] flex xs:pt-20 xs:text-[7rem]"
       >
         {!dataState.locationData ? (
           <Loading extraName="loading-degree" />

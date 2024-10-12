@@ -4,8 +4,8 @@ let year = d.getFullYear();
 function Foot() {
   return (
     <footer className="bg-ten text-black">
-      <section className="flex justify-around p-8 text-center">
-        <h1 id="brand" className="text-5xl flex-1 m-auto xs:!text-[2rem]">
+      <section className="flex justify-around p-8 text-center xs:p-[1.5rem]">
+        <h1 id="brand" className="text-5xl flex-1 m-auto xs:!text-[1.5rem]">
           Weather
           <br />
           Now

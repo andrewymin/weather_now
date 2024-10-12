@@ -49,7 +49,7 @@ function SearchLocal() {
   };
 
   return (
-    <search>
+    <search className="xs:col-start-1 xs:col-end-3">
       <form
         autoComplete="off"
         action="get"
