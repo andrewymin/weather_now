@@ -12,7 +12,7 @@ function Head() {
   };
 
   return (
-    <nav className="flex justify-between items-center bg-gradient-to-b from-thirty from-65% p-6 top-0 left-0 w-full xs:p-4">
+    <nav className="flex justify-between items-center p-6 top-0 left-0 w-full xs:p-4">
       <h1
         id="brand"
         className="text-3xl font-bold text-center xs:!text-[1.5rem] xs:leading-8"

@@ -129,3 +129,9 @@ hr {
 .scrollHide::-webkit-scrollbar {
   display: none;
 }
+
+.night {
+  background: linear-gradient(rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 45%, rgba(104, 210, 232, 1) 100%);
+  color: white;
+}
+

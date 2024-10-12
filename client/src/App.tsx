@@ -7,9 +7,15 @@ import { DataProvider } from "./context/dataContext";
 // import { Suspense } from "react";
 // import Loading from "./components/loading";
 
+const date = new Date();
+let hour = date.getHours();
+let night = false;
+
+if (hour > 18 || hour < 7) night = !night;
+
 function App() {
   return (
-    <div className="bg-thirty">
+    <div className={night ? "night" : "bg-thirty"}>
       <DataProvider>
         <Head />
         {/* <Local formRef={handleFormRef} /> // don't need this once updated since will use users location or default location if denied*/}
