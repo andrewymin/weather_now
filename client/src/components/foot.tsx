@@ -11,12 +11,16 @@ function Foot() {
           Now
         </h1>
         <div className="flex-1 text-center">
-          <h1 className="border-b-2 border-darkerBlue w-fit m-auto">MENU</h1>
+          <h1 className="border-b-2 border-darkerBlue w-fit m-auto weather-font tracking-[1px]">
+            MENU
+          </h1>
           <h2 className="my-4">Location</h2>
           <h2>About Us</h2>
         </div>
         <div className="flex-1">
-          <h1 className="border-b-2 border-darkerBlue w-fit m-auto">CONNECT</h1>
+          <h1 className="border-b-2 border-darkerBlue w-fit m-auto weather-font tracking-[1px]">
+            CONNECT
+          </h1>
           <a href="https://www.yoongimin.com" className="block mt-4">
             Contact Us
           </a>

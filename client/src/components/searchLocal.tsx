@@ -71,7 +71,7 @@ function SearchLocal() {
         </Button>
       </form>
       {filteredCities.length > 0 && (
-        <ul className="border max-h-40 max-w-[20%] xs:!max-w-[44%] absolute mt-4 text-black bg-white rounded z-10 scrollHide">
+        <ul className="border max-h-40 max-w-[20%] xs:!max-w-[44%] absolute mt-4 text-black bg-white rounded z-10 scrollHide xs:mt-0">
           {filteredCities.map((city, index) => (
             <li
               key={index}

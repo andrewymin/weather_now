@@ -48,10 +48,12 @@ function Daily() {
                 key={i}
                 className="grid grid-cols-3 py-6 border-b-2 hover:bg-darkerBlue last:rounded-b-[7px] last:border-none"
               >
-                <div className="m-auto text-5xl xs:!text-[2.1rem]">
-                  {parseInt(d.date.split("-")[2]) == currentDay
-                    ? "Today"
-                    : d.date.split("-")[2]}
+                <div className="m-auto text-5xl xs:!text-[2.1rem] weather-font">
+                  {parseInt(d.date.split("-")[2]) == currentDay ? (
+                    <span className="xs:text-[1.5rem]">Today</span>
+                  ) : (
+                    d.date.split("-")[2]
+                  )}
                 </div>
                 <img
                   className="m-auto"
